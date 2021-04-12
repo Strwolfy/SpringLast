@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Сохранение пользователя</title>
+</head>
+<body>
+<div align="center">
+    <h3>Сохранение пользователя:</h3>
+    <br><br>
+    <form th:method="post" th:action="@{/admin/saveUser}"  th:object="${user}">
+        <table align="center">
+            <input type="hidden" th:field="*{id}"/>
+            <tr>
+                <td>Имя:</td>
+                <td><label>
+                    <input th:field="*{name}" type="text"/>
+                </label></td>
+            </tr>
+            <tr>
+                <td>Фамилия:</td>
+                <td><label>
+                    <input th:field="*{lastName}" type="text"/>
+                </label></td>
+            </tr>
+            <tr>
+                <td>Департамент: </td>
+                <td><label>
+                    <input  th:field="*{department}" type="text"/>
+                </label></td>
+            </tr>
+            <tr>
+                <td>Почта:</td>
+                <td><input th:field="*{email}" type="text"/></td>
+            </tr>
+            <tr>
+                <td>Пароль:</td>
+                <td><input th:field="*{password}" type="password"/></td>
+            </tr>
+            <tr>
+                <label><strong>Права:</strong></label>
+                <br>
+                <label>
+                    <select multiple size="2" name="role" th:required="true" class="form-control">
+                        <option
+                                th:each="role : ${listRole}"
+                                th:value="${role.getRole()}"
+                                th:text="${role.getRole()}"
+                                th:selected="${role.getRole() == 'ROLE_USER'}">
+                        </option>
+                    </select>
+                </label>
+            </tr>
+        </table>
+        <br><br>
+        <input type="submit" value="Сохранить пользователя">
+        <br><br>
+        <input type="button" value="Выйти без сохранения"
+               onclick="window.location.href ='/admin'"
+        />
+    </form>
+</div>
+</body>
+</html>
